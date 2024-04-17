@@ -198,18 +198,14 @@ const CurrencyConverter = () => {
     setError("");
     setLoading(true);
 
-    const API_KEY = "pki0AQpHTcN5CxVXK2Wd7Pc1S3POWX4L";
-
+    const API_KEY = "a984b18693593fb19771f8eecb64d98b";
     try {
       const response = await axios.get(
-        `https://api.exchangerate.host/latest?base=${fromCurrency}&access_key=${API_KEY}`
+        `https://data.fixer.io/api/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
       );
       console.log("Response data:", response.data);
 
-      const rate = response.data.rates[toCurrency];
-      console.log("Exchange rate:", rate);
-
-      const converted = parseFloat(amount) * rate;
+      const converted = response.data.result;
       console.log("Converted amount:", converted);
 
       setConvertedAmount(converted.toFixed(2));
@@ -221,7 +217,6 @@ const CurrencyConverter = () => {
 
     setLoading(false);
   };
-
   return (
     <div className="max-w-md mx-auto p-6 bg-gray-100 shadow-md rounded-md">
       <form onSubmit={handleFormSubmit}>
