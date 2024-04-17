@@ -198,10 +198,10 @@ const CurrencyConverter = () => {
     setError("");
     setLoading(true);
 
-    const API_KEY = "a984b18693593fb19771f8eecb64d98b";
+    const API_KEY = "b3734606aa031f81dd5e202637237488";
     try {
       const response = await axios.get(
-        `https://data.fixer.io/api/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
+        `http://api.exchangerate.host/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
       );
       console.log("Response data:", response.data);
 
