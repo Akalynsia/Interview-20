@@ -199,10 +199,10 @@ const CurrencyConverter = () => {
     setLoading(true);
 
     const API_KEY = "b3734606aa031f81dd5e202637237488";
+    const endpoint = `https://api.exchangerate.host/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`;
+
     try {
-      const response = await axios.get(
-        `http://api.exchangerate.host/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`
-      );
+      const response = await axios.get(endpoint);
       console.log("Response data:", response.data);
 
       const converted = response.data.result;
