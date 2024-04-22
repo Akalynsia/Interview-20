@@ -198,14 +198,24 @@ const CurrencyConverter = () => {
     setError("");
     setLoading(true);
 
-    const API_KEY = "b3734606aa031f81dd5e202637237488";
-    const endpoint = `https://api.exchangerate.host/convert?access_key=${API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`;
+    const API_KEY = "f251c26f8bee0c3d85ce653d";
+    const endpoint = `https://v6.exchangerate-api.com/v6/${API_KEY}/latest/${fromCurrency}`;
 
     try {
       const response = await axios.get(endpoint);
       console.log("Response data:", response.data);
 
-      const converted = response.data.result;
+      const rates = response.data.conversion_rates;
+      console.log("Rates:", rates);
+
+      const fromRate = rates[fromCurrency];
+      const toRate = rates[toCurrency];
+
+      if (!fromRate || !toRate) {
+        throw new Error("Invalid currency code.");
+      }
+
+      const converted = (amount / fromRate) * toRate;
       console.log("Converted amount:", converted);
 
       setConvertedAmount(converted.toFixed(2));
